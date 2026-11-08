@@ -1,6 +1,7 @@
 {
   "domain": "masjid247",
   "name": "Masjid 24/7",
+  "categories": ["productivity_information.calendars_todos"],
   "codeowners": ["@MVPPROIT"],
   "config_flow": true,
   "documentation": "https://github.com/MVPPROIT/ha-masjid247",

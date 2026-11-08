@@ -127,3 +127,9 @@ access log (IP address and the file requested).
 - *Next month's times missing near the end of the month*: the masjid has not published
   them yet. They appear once it does.
 - Download diagnostics from the integration's ⋮ menu when reporting a problem.
+
+## Licence
+
+The code is MIT licensed (see `LICENSE`). The Masjid 24/7 name and logo (the images in
+`custom_components/masjid247/brand/`) belong to Masjid 24/7 and are not covered by
+that licence.
