@@ -106,7 +106,7 @@ Minutes until the next Jam’aat, as a template:
 ## Where the Times Come From
 
 The integration reads a copy of the Masjid 24/7 Timetables kept at
-`masjid247.mvppro.co.uk`. Home Assistant never calls Masjid 24/7's own servers. That
+`prayertimes.mvppro.co.uk`. Home Assistant never calls Masjid 24/7's own servers. That
 copy is refreshed from Masjid 24/7 every 6 hours, so a Masjid's correction shows up
 the same day. The first time anyone asks for a Masjid, the copy fetches it once.
 

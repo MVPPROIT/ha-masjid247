@@ -1,6 +1,6 @@
 """Client and parser for the Masjid 24/7 prayer-time mirror.
 
-Each file is https://masjid247.mvppro.co.uk/jsonfiles/v1/<id>/<year>/<month>.json:
+Each file is https://prayertimes.mvppro.co.uk/jsonfiles/v1/<id>/<year>/<month>.json:
 the official Masjid 24/7 API's timetable for one masjid and one month, unchanged.
 
     {"mosqueId": 965, "name": "...", "timezone": "Europe/London", "year": 2026,

@@ -1,7 +1,7 @@
 """Masjid 24/7 prayer times for Home Assistant.
 
 Reads each masjid's timetable from a mirror of the Masjid 24/7 API
-(masjid247.mvppro.co.uk), so Home Assistant never loads Masjid 24/7's own servers.
+(prayertimes.mvppro.co.uk), so Home Assistant never loads Masjid 24/7's own servers.
 """
 
 from __future__ import annotations
