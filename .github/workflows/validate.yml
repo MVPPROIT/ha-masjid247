@@ -20,9 +20,6 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # Brand images ship inside the integration (custom_components/masjid247/brand),
-          # which Home Assistant 2026+ serves itself.
-          ignore: brands
 
   tests:
     runs-on: ubuntu-latest
