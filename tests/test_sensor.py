@@ -47,12 +47,12 @@ async def _advance(hass: HomeAssistant, freezer: FrozenDateTimeFactory, to: str)
 async def test_todays_times(hass: HomeAssistant, mirror: AiohttpClientMocker) -> None:
     await _setup(hass, [965, 2093])
     # Leicester Central Mosque, Sunday 8 Nov 2026 (GMT: local time == UTC)
-    assert _state(hass, f"{LCM}_fajr_begins") == "2026-11-08T05:39:00+00:00"
+    assert _state(hass, f"{LCM}_fajr_beginning") == "2026-11-08T05:39:00+00:00"
     assert _state(hass, f"{LCM}_fajr_jamaat") == "2026-11-08T06:45:00+00:00"
     assert _state(hass, f"{LCM}_sunrise") == "2026-11-08T07:11:00+00:00"
     assert _state(hass, f"{LCM}_dhuhr_jamaat") == "2026-11-08T13:15:00+00:00"
-    assert _state(hass, f"{LCM}_asr_begins") == "2026-11-08T14:35:00+00:00"
-    assert _state(hass, f"{LCM}_maghrib_begins") == "2026-11-08T16:24:00+00:00"
+    assert _state(hass, f"{LCM}_asr_beginning") == "2026-11-08T14:35:00+00:00"
+    assert _state(hass, f"{LCM}_maghrib_beginning") == "2026-11-08T16:24:00+00:00"
     assert _state(hass, f"{LCM}_isha_jamaat") == "2026-11-08T18:30:00+00:00"
     assert _state(hass, f"{LCM}_jummah") == "2026-11-13T13:15:00+00:00"
     assert _state(hass, f"{LCM}_hijri_date") == "28 Jumada al-Awwal 1448"
@@ -61,7 +61,7 @@ async def test_todays_times(hass: HomeAssistant, mirror: AiohttpClientMocker) ->
     attrs = hass.states.get(f"{LCM}_isha_jamaat").attributes
     assert attrs["tomorrow"] == "2026-11-09T19:30:00+00:00"
     nxt = hass.states.get(f"{LCM}_next_prayer").attributes
-    assert nxt["begins"] == "2026-11-08T11:51:00+00:00"
+    assert nxt["beginning"] == "2026-11-08T11:51:00+00:00"
     assert nxt["jamaat"] == "2026-11-08T13:15:00+00:00"
     # Masjid-e-Salaam has its own device and times
     assert _state(hass, f"{MES}_dhuhr_jamaat") == "2026-11-08T12:45:00+00:00"
@@ -77,7 +77,7 @@ async def test_optional_sensors(hass: HomeAssistant, mirror: AiohttpClientMocker
     assert registry.async_get(f"{LCM}_jummah_2") is None
     zawal = registry.async_get(f"{LCM}_zawal")
     assert zawal is not None and zawal.disabled_by is er.RegistryEntryDisabler.INTEGRATION
-    assert registry.async_get(f"{LCM}_asr_begins_2") is None
+    assert registry.async_get(f"{LCM}_asr_2nd_beginning") is None
 
 
 async def test_next_prayer_moves_on_at_jamaat(
@@ -109,10 +109,10 @@ async def test_midnight_rollover(
 ) -> None:
     freezer.move_to("2026-11-08 23:59:00+00:00")
     await _setup(hass, [965])
-    assert _state(hass, f"{LCM}_fajr_begins") == "2026-11-08T05:39:00+00:00"
+    assert _state(hass, f"{LCM}_fajr_beginning") == "2026-11-08T05:39:00+00:00"
     assert _state(hass, f"{LCM}_hijri_date") == "28 Jumada al-Awwal 1448"
     await _advance(hass, freezer, "2026-11-09 00:00:02+00:00")
-    assert _state(hass, f"{LCM}_fajr_begins") == "2026-11-09T05:41:00+00:00"
+    assert _state(hass, f"{LCM}_fajr_beginning") == "2026-11-09T05:41:00+00:00"
     assert _state(hass, f"{LCM}_hijri_date") == "29 Jumada al-Awwal 1448"
 
 
@@ -121,10 +121,10 @@ async def test_month_end_reads_next_month(
 ) -> None:
     freezer.move_to("2026-11-30 12:00:00+00:00")
     await _setup(hass, [965])
-    attrs = hass.states.get(f"{LCM}_fajr_begins").attributes
+    attrs = hass.states.get(f"{LCM}_fajr_beginning").attributes
     assert attrs["tomorrow"] == "2026-12-01T06:12:00+00:00"
     await _advance(hass, freezer, "2026-12-01 00:00:02+00:00")
-    assert _state(hass, f"{LCM}_fajr_begins") == "2026-12-01T06:12:00+00:00"
+    assert _state(hass, f"{LCM}_fajr_beginning") == "2026-12-01T06:12:00+00:00"
 
 
 @pytest.mark.parametrize(
@@ -146,7 +146,7 @@ async def test_clock_changes(
     for year, month in months:
         aioclient_mock.get(url(965, year, month), json=synth_month(965, year, month))
     await _setup(hass, [965])
-    state = hass.states.get(f"{LCM}_fajr_begins")
+    state = hass.states.get(f"{LCM}_fajr_beginning")
     assert state.state == today_utc
     assert state.attributes["tomorrow"] == tomorrow_utc
 
@@ -159,7 +159,7 @@ async def test_maghrib_without_start_time(
         aioclient_mock.get(url(965, 2026, month), json=synth_month(
             965, 2026, month, maghrib={"begins": [], "jamaah": ["16:24"]}))
     await _setup(hass, [965])
-    assert _state(hass, f"{LCM}_maghrib_begins") == "2026-11-08T16:24:00+00:00"
+    assert _state(hass, f"{LCM}_maghrib_beginning") == "2026-11-08T16:24:00+00:00"
     assert _state(hass, f"{LCM}_maghrib_jamaat") == "2026-11-08T16:24:00+00:00"
 
 
@@ -213,3 +213,43 @@ async def test_diagnostics(hass: HomeAssistant, mirror: AiohttpClientMocker) -> 
     assert diag["masjids"]["965"]["name"] == "Leicester Central Mosque"
     assert diag["masjids"]["965"]["days"] == 61
     assert diag["saved_months"] == ["2093/2026/11", "2093/2026/12", "965/2026/11", "965/2026/12"]
+
+
+@pytest.mark.freeze_time("2026-11-08 12:00:00+00:00")
+async def test_names(hass: HomeAssistant, mirror: AiohttpClientMocker) -> None:
+    await _setup(hass, [965])
+    names = {
+        f"{LCM}_fajr_beginning": "Leicester Central Mosque Fajr Beginning",
+        f"{LCM}_fajr_jamaat": "Leicester Central Mosque Fajr Jam’aat",
+        f"{LCM}_next_jamaat": "Leicester Central Mosque Next Jam’aat",
+        f"{LCM}_next_prayer": "Leicester Central Mosque Next Prayer",
+        f"{LCM}_hijri_date": "Leicester Central Mosque Hijri Date",
+    }
+    for entity_id, name in names.items():
+        assert hass.states.get(entity_id).attributes["friendly_name"] == name
+
+
+@pytest.mark.freeze_time("2026-11-08 12:00:00+00:00")
+async def test_upgrade_from_1_0_0_keeps_sensors(
+    hass: HomeAssistant, mirror: AiohttpClientMocker
+) -> None:
+    """1.0.0's "<prayer>_begins" sensors are renamed in place, entity IDs kept."""
+    entry = make_entry([2093])
+    entry.add_to_hass(hass)
+    registry = er.async_get(hass)
+    old = registry.async_get_or_create(
+        "sensor", "masjid247", "2093_fajr_begins", config_entry=entry,
+        suggested_object_id="masjid_e_salaam_fajr_begins",
+    )
+    old_2 = registry.async_get_or_create(
+        "sensor", "masjid247", "2093_asr_begins_2", config_entry=entry,
+        suggested_object_id="masjid_e_salaam_asr_begins_2",
+    )
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert registry.async_get(old.entity_id).unique_id == "2093_fajr_beginning"
+    assert registry.async_get(old_2.entity_id).unique_id == "2093_asr_beginning_2"
+    assert _state(hass, old.entity_id) == "2026-11-08T05:45:00+00:00"
+    # no duplicate was created under the new name
+    assert hass.states.get(f"{MES}_fajr_beginning") is None

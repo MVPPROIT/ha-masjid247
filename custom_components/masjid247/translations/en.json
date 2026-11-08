@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Masjid 24/7",
-        "description": "Enter the Masjid ID of each masjid you want prayer times for. Separate several with commas, for example 965, 2093.\n\nTo find a masjid's ID, search for it on [masjid247.com/clock/setup]({setup_url}) and press **Add**: the number shown next to it is its Masjid ID.",
+        "description": "Enter the Masjid ID of each Masjid you want Prayer Times for. Separate several with commas, for example 965, 2093.\n\nTo find a Masjid ID, search for the Masjid on [masjid247.com/clock/setup]({setup_url}) and press **Add**: the number shown next to it is its Masjid ID.",
         "data": {
           "masjids": "Masjid ID(s)"
         },
@@ -14,19 +14,19 @@
     },
     "error": {
       "invalid_ids": "Enter Masjid IDs as numbers, separated by commas (for example 965, 2093).",
-      "too_many": "You can add up to 10 masjids.",
-      "not_found": "No prayer timetable was found for masjid {ids}. Check the number on masjid247.com/clock/setup.",
-      "cannot_connect": "Could not reach the Masjid 24/7 prayer-time server. Please try again in a minute."
+      "too_many": "You can add up to 10 Masjids.",
+      "not_found": "No Prayer Timetable was found for Masjid {ids}. Check the number on masjid247.com/clock/setup.",
+      "cannot_connect": "Could not reach the Masjid 24/7 Prayer Times server. Please try again in a minute."
     },
     "abort": {
-      "single_instance_allowed": "Masjid 24/7 is already set up. Open it and press Configure to add or remove masjids."
+      "single_instance_allowed": "Masjid 24/7 is already set up. Open it and press Configure to add or remove Masjids."
     }
   },
   "options": {
     "step": {
       "init": {
         "title": "Masjids",
-        "description": "Add or remove Masjid IDs, separated by commas. Find a masjid's ID on [masjid247.com/clock/setup]({setup_url}).",
+        "description": "Add or remove Masjid IDs, separated by commas. Find a Masjid ID on [masjid247.com/clock/setup]({setup_url}).",
         "data": {
           "masjids": "Masjid ID(s)"
         },
@@ -37,42 +37,42 @@
     },
     "error": {
       "invalid_ids": "Enter Masjid IDs as numbers, separated by commas (for example 965, 2093).",
-      "too_many": "You can add up to 10 masjids.",
-      "not_found": "No prayer timetable was found for masjid {ids}. Check the number on masjid247.com/clock/setup.",
-      "cannot_connect": "Could not reach the Masjid 24/7 prayer-time server. Please try again in a minute."
+      "too_many": "You can add up to 10 Masjids.",
+      "not_found": "No Prayer Timetable was found for Masjid {ids}. Check the number on masjid247.com/clock/setup.",
+      "cannot_connect": "Could not reach the Masjid 24/7 Prayer Times server. Please try again in a minute."
     }
   },
   "entity": {
     "sensor": {
-      "fajr_begins": { "name": "Fajr begins" },
-      "fajr_jamaat": { "name": "Fajr jamaat" },
-      "fajr_jamaat_2": { "name": "Fajr 2nd jamaat" },
+      "fajr_beginning": { "name": "Fajr Beginning" },
+      "fajr_jamaat": { "name": "Fajr Jam’aat" },
+      "fajr_jamaat_2": { "name": "Fajr 2nd Jam’aat" },
       "sunrise": { "name": "Sunrise" },
-      "dhuhr_begins": { "name": "Dhuhr begins" },
-      "dhuhr_jamaat": { "name": "Dhuhr jamaat" },
-      "dhuhr_jamaat_2": { "name": "Dhuhr 2nd jamaat" },
-      "asr_begins": { "name": "Asr begins" },
-      "asr_begins_2": { "name": "Asr begins (2nd)" },
-      "asr_jamaat": { "name": "Asr jamaat" },
-      "asr_jamaat_2": { "name": "Asr 2nd jamaat" },
-      "maghrib_begins": { "name": "Maghrib begins" },
-      "maghrib_jamaat": { "name": "Maghrib jamaat" },
-      "maghrib_jamaat_2": { "name": "Maghrib 2nd jamaat" },
-      "isha_begins": { "name": "Isha begins" },
-      "isha_jamaat": { "name": "Isha jamaat" },
-      "isha_jamaat_2": { "name": "Isha 2nd jamaat" },
+      "dhuhr_beginning": { "name": "Dhuhr Beginning" },
+      "dhuhr_jamaat": { "name": "Dhuhr Jam’aat" },
+      "dhuhr_jamaat_2": { "name": "Dhuhr 2nd Jam’aat" },
+      "asr_beginning": { "name": "Asr Beginning" },
+      "asr_beginning_2": { "name": "Asr 2nd Beginning" },
+      "asr_jamaat": { "name": "Asr Jam’aat" },
+      "asr_jamaat_2": { "name": "Asr 2nd Jam’aat" },
+      "maghrib_beginning": { "name": "Maghrib Beginning" },
+      "maghrib_jamaat": { "name": "Maghrib Jam’aat" },
+      "maghrib_jamaat_2": { "name": "Maghrib 2nd Jam’aat" },
+      "isha_beginning": { "name": "Isha Beginning" },
+      "isha_jamaat": { "name": "Isha Jam’aat" },
+      "isha_jamaat_2": { "name": "Isha 2nd Jam’aat" },
       "jummah": { "name": "Jummah" },
       "jummah_n": { "name": "Jummah {number}" },
-      "sehri_end": { "name": "Sehri ends" },
+      "sehri_end": { "name": "Sehri Ends" },
       "zawal": { "name": "Zawal" },
       "hijri_date": {
-        "name": "Hijri date",
+        "name": "Hijri Date",
         "state_attributes": {
           "tomorrow": { "name": "Tomorrow" }
         }
       },
       "next_prayer": {
-        "name": "Next prayer",
+        "name": "Next Prayer",
         "state": {
           "fajr": "Fajr",
           "dhuhr": "Dhuhr",
@@ -82,12 +82,12 @@
           "isha": "Isha"
         },
         "state_attributes": {
-          "begins": { "name": "Begins" },
-          "jamaat": { "name": "Jamaat" }
+          "beginning": { "name": "Beginning" },
+          "jamaat": { "name": "Jam’aat" }
         }
       },
       "next_jamaat": {
-        "name": "Next jamaat",
+        "name": "Next Jam’aat",
         "state_attributes": {
           "prayer": { "name": "Prayer" }
         }

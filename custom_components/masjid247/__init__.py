@@ -6,9 +6,11 @@ Reads each masjid's timetable from a mirror of the Masjid 24/7 API
 
 from __future__ import annotations
 
+from typing import Any
+
 from homeassistant.const import Platform
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.storage import Store
 
@@ -27,6 +29,7 @@ def configured_ids(entry: Masjid247ConfigEntry) -> list[int]:
 
 async def async_setup_entry(hass: HomeAssistant, entry: Masjid247ConfigEntry) -> bool:
     """Set up Masjid 24/7 from a config entry."""
+    await er.async_migrate_entries(hass, entry.entry_id, _migrate_unique_id)
     ids = configured_ids(entry)
     coordinator = Masjid247Coordinator(
         hass, entry, Masjid247Client(async_get_clientsession(hass)), ids
@@ -59,6 +62,17 @@ async def async_remove_entry(hass: HomeAssistant, entry: Masjid247ConfigEntry) -
 async def _async_options_updated(hass: HomeAssistant, entry: Masjid247ConfigEntry) -> None:
     """Masjids added or removed: reload to rebuild devices and sensors."""
     await hass.config_entries.async_reload(entry.entry_id)
+
+
+@callback
+def _migrate_unique_id(entity: er.RegistryEntry) -> dict[str, Any] | None:
+    """1.0.0 called the start-time sensors "<prayer>_begins"; since 1.1.0 they are
+    "<prayer>_beginning". Rename in place so existing sensors (and their entity IDs,
+    history and customisations) carry over instead of being duplicated."""
+    for old, new in (("_begins_2", "_beginning_2"), ("_begins", "_beginning")):
+        if entity.unique_id.endswith(old):
+            return {"new_unique_id": entity.unique_id[: -len(old)] + new}
+    return None
 
 
 def _remove_stale_devices(

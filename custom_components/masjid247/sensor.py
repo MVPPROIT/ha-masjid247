@@ -65,16 +65,16 @@ def _jummah(index: int):
 
 # Always created, in the order they appear on the device page.
 CORE: tuple[Masjid247SensorDescription, ...] = (
-    _time("fajr_begins", _begins("fajr")),
+    _time("fajr_beginning", _begins("fajr")),
     _time("fajr_jamaat", _jamaat("fajr")),
     _time("sunrise", _field("sunrise")),
-    _time("dhuhr_begins", _begins("dhuhr")),
+    _time("dhuhr_beginning", _begins("dhuhr")),
     _time("dhuhr_jamaat", _jamaat("dhuhr")),
-    _time("asr_begins", _begins("asr")),
+    _time("asr_beginning", _begins("asr")),
     _time("asr_jamaat", _jamaat("asr")),
-    _time("maghrib_begins", _begins("maghrib")),
+    _time("maghrib_beginning", _begins("maghrib")),
     _time("maghrib_jamaat", _jamaat("maghrib")),
-    _time("isha_begins", _begins("isha")),
+    _time("isha_beginning", _begins("isha")),
     _time("isha_jamaat", _jamaat("isha")),
     _time("jummah", _jummah(0)),
     Masjid247SensorDescription(
@@ -94,7 +94,7 @@ def extra_descriptions(md: MasjidData) -> list[Masjid247SensorDescription]:
     out: list[Masjid247SensorDescription] = []
     days = list(md.days.values())
     if any(len(d.begins["asr"]) > 1 for d in days):
-        out.append(_time("asr_begins_2", _begins("asr", 1), enabled=False))
+        out.append(_time("asr_beginning_2", _begins("asr", 1), enabled=False))
     for prayer in PRAYERS:
         if any(len(d.jamaat[prayer]) > 1 for d in days):
             out.append(_time(f"{prayer}_jamaat_2", _jamaat(prayer, 1), enabled=False))
@@ -231,11 +231,11 @@ class NextPrayerSensor(_MasjidEntity):
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
-        """Its start and jamaat times."""
+        """Its Beginning and Jam’aat times."""
         event = self._event()
         if event is None:
             return None
-        return {"begins": self._iso(event.begins), "jamaat": self._iso(event.jamaat)}
+        return {"beginning": self._iso(event.begins), "jamaat": self._iso(event.jamaat)}
 
 
 class NextJamaatSensor(_MasjidEntity):
