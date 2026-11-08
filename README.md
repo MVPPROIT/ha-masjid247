@@ -69,6 +69,47 @@ How the values behave:
   Maghrib Jam’aat, as the Masjid 24/7 app does.
 - On Fridays *Next Prayer* says **Jummah**, using the Masjid's Dhuhr/Jummah Jam’aat.
 
+## Tutorial: Turn a Light On at Maghrib
+
+Every Prayer sensor is a time, so an automation can run at that time each day.
+
+1. Go to **Settings → Automations & scenes** and press **Create automation** (pick
+   **Create new automation** if asked).
+2. Under **When**, press **Add trigger**, open **Time and sun → Time**, and pick
+   **Time** (*Triggers at a specific time*).
+3. Set **Mode** to **Value of a date/time helper or timestamp-class sensor**.
+4. In **Entity with timestamp**, pick your Masjid's **Maghrib Jam’aat** (or **Maghrib
+   Beginning**).
+5. Optional: to run before or after it, fill in **Offset**. For example `-00:05:00` is
+   five minutes before.
+6. Under **Then do**, press **Add action**, search for **Turn on light**, pick it, and
+   choose your light.
+7. Press **Save** and give it a name, e.g. *Landing Light On at Maghrib*.
+
+It runs at Maghrib every day. At midnight the sensor moves to the next day's time, so
+there is nothing to update.
+
+The same automation in YAML:
+
+```yaml
+alias: Landing Light On at Maghrib
+triggers:
+  - trigger: time
+    at: sensor.leicester_central_mosque_maghrib_jamaat
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.landing
+```
+
+**Two common mistakes:**
+
+- **A State trigger on the sensor.** It fires when the sensor's value *changes* (at
+  midnight, and when Home Assistant restarts), not when the time arrives. Use the
+  **Time** trigger as above.
+- **Toggle instead of Turn on.** If the light is already on at Maghrib, *Toggle*
+  switches it off. Use **Turn on**.
+
 ## Automation Examples
 
 Pause the TV five minutes before every Jam’aat:
