@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MVPPROIT/ha-masjid247/main/custom_components/masjid247/brand/logo@2x.png" alt="masjid 24/7" height="96">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MVPPROIT/ha-masjid247/main/custom_components/masjid247/brand/dark_logo@2x.png">
+    <img src="https://raw.githubusercontent.com/MVPPROIT/ha-masjid247/main/custom_components/masjid247/brand/logo@2x.png" alt="masjid 24/7" height="96">
+  </picture>
 </p>
 
 # Masjid 24/7 for Home Assistant
