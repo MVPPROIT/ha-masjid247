@@ -1,0 +1,30 @@
+{
+  "entity": {
+    "sensor": {
+      "fajr_begins": { "default": "mdi:weather-sunset-up" },
+      "fajr_jamaat": { "default": "mdi:weather-sunset-up" },
+      "fajr_jamaat_2": { "default": "mdi:weather-sunset-up" },
+      "sunrise": { "default": "mdi:weather-sunny" },
+      "dhuhr_begins": { "default": "mdi:white-balance-sunny" },
+      "dhuhr_jamaat": { "default": "mdi:white-balance-sunny" },
+      "dhuhr_jamaat_2": { "default": "mdi:white-balance-sunny" },
+      "asr_begins": { "default": "mdi:weather-partly-cloudy" },
+      "asr_begins_2": { "default": "mdi:weather-partly-cloudy" },
+      "asr_jamaat": { "default": "mdi:weather-partly-cloudy" },
+      "asr_jamaat_2": { "default": "mdi:weather-partly-cloudy" },
+      "maghrib_begins": { "default": "mdi:weather-sunset-down" },
+      "maghrib_jamaat": { "default": "mdi:weather-sunset-down" },
+      "maghrib_jamaat_2": { "default": "mdi:weather-sunset-down" },
+      "isha_begins": { "default": "mdi:weather-night" },
+      "isha_jamaat": { "default": "mdi:weather-night" },
+      "isha_jamaat_2": { "default": "mdi:weather-night" },
+      "jummah": { "default": "mdi:mosque" },
+      "jummah_n": { "default": "mdi:mosque" },
+      "sehri_end": { "default": "mdi:silverware-fork-knife" },
+      "zawal": { "default": "mdi:sun-clock" },
+      "hijri_date": { "default": "mdi:calendar-month" },
+      "next_prayer": { "default": "mdi:mosque" },
+      "next_jamaat": { "default": "mdi:clock-outline" }
+    }
+  }
+}
